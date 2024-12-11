@@ -2,12 +2,10 @@
 using System.IO;
 using System.Linq;
 
-// הגדרת פקודת bundle
 var bundleOption = new Option<FileInfo>("--o", "File path and name")
 {
     IsRequired = true
 };
-
 var languageOption = new Option<string[]>(
     "--l",
     description: "List of programming languages (e.g., C#, Java, Python, etc.). Use 'all' for all languages.",
@@ -16,20 +14,16 @@ var languageOption = new Option<string[]>(
 {
     IsRequired = true
 };
-
 var noteOption = new Option<bool>("--n", "Include source file paths as comments in the bundle");
-
 var sortOption = new Option<string>(
     "--s",
     description: "Sort files by 'name' (alphabetically by file name) or 'extension' (by file type). Default is 'name'.",
     getDefaultValue: () => "name"
 );
-
 var removeEmptyLinesOption = new Option<bool>(
     "--rel",
     description: "Remove empty lines from source code before bundling"
 );
-
 var authorOption = new Option<string>(
     "--a",
     description: "Specify the author of the bundle (adds an author comment at the top of the file)"
@@ -81,8 +75,7 @@ bundleCommand.SetHandler(
                 Console.WriteLine("Error: Output file already exists. Please choose a different name.");
                 return;
             }
-
-            var filesToInclude = Directory.GetFiles(".", "*", SearchOption.AllDirectories)
+                 var filesToInclude = Directory.GetFiles(".", "*", SearchOption.AllDirectories)
                 .Where(file =>
                 {
                     var extension = Path.GetExtension(file).ToLower();
@@ -96,7 +89,6 @@ bundleCommand.SetHandler(
                 Console.WriteLine("No files found for the specified languages.");
                 return;
             }
-
             if (sort == "extension")
             {
                 filesToInclude = filesToInclude.OrderBy(file => Path.GetExtension(file)).ThenBy(file => Path.GetFileName(file)).ToArray();
@@ -107,8 +99,6 @@ bundleCommand.SetHandler(
             }
 
             using var writer = new StreamWriter(output.FullName);
-
-            // הוספת שם היוצר בראש הקובץ
             if (!string.IsNullOrWhiteSpace(author))
             {
                 await writer.WriteLineAsync($"//       Author: {author}");
@@ -129,7 +119,6 @@ bundleCommand.SetHandler(
                 {
                     content = RemoveEmptyLines(content);
                 }
-
                 await writer.WriteLineAsync(content);
             }
 
@@ -141,8 +130,6 @@ bundleCommand.SetHandler(
         }
     },
     bundleOption, languageOption, noteOption, sortOption, removeEmptyLinesOption, authorOption);
-
-// הגדרת פקודת create-rsp
 var rspCommand = new Command("crsp", "Create a response file for the bundle command");
 
 rspCommand.SetHandler(async () =>
@@ -176,7 +163,7 @@ rspCommand.SetHandler(async () =>
 
         if (string.IsNullOrWhiteSpace(output))
         {
-            output = "ttttttttam.txt"; // ערך ברירת מחדל
+            output = "example.txt"; 
             Console.WriteLine($"No output file specified. Using default: {output}");
         }
 
@@ -185,7 +172,7 @@ rspCommand.SetHandler(async () =>
 
         if (string.IsNullOrWhiteSpace(languages))
         {
-            languages = "all"; // ברירת מחדל
+            languages = "all";
         }
 
         Console.Write("Sort files by? (--s, choose 'name' or 'extension'): ");
@@ -193,7 +180,7 @@ rspCommand.SetHandler(async () =>
 
         if (string.IsNullOrWhiteSpace(sort))
         {
-            sort = "name"; // ברירת מחדל
+            sort = "name"; 
         }
 
         Console.Write("Remove empty lines? (--rel) [yes/no]: ");
