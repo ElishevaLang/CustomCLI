@@ -26,3 +26,7 @@ bash: fib bundle --output my-file-name.txt --language c# --note --sort extension
 bash: *fib bundle --output my-file.txt --language c# --note --sort extension --rel --author "John Doe"
       *fib crsp
       *fib bundle @fileName.rsp
+
+###Thanks for checking out my project hope you enjoyed!
+
+
