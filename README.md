@@ -1,4 +1,4 @@
-Command-Line Application for File Bundling Overview:
+##Command-Line Application for File Bundling:
 This project is a robust command-line application designed to bundle files efficiently.
 The application provides a streamlined way to combine files with customizable parameters, offering flexibility for developers and users alike.
 
