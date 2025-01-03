@@ -27,6 +27,6 @@ bash: *fib bundle --output my-file.txt --language c# --note --sort extension --r
       *fib crsp
       *fib bundle @fileName.rsp
 
-### Thanks for checking out my project hope you enjoyed!
+### Thanks for checking out my project - hope you enjoyed!
 
 
